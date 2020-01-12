@@ -20,6 +20,8 @@ LABEL maintainer="AppThreat" \
       org.label-schema.vcs-url="https://github.com/appthreat/scan-base.git" \
       org.label-schema.docker.cmd="docker run --rm -it --name scan-base appthreat/scan-base /bin/bash"
 
+USER root
+
 RUN yum update -y \
     && yum install -y ruby ruby-libs ruby-devel rubygems nodejs java-11-openjdk-headless \
     && curl -L https://sh.rustup.rs > rust-installer.sh \
