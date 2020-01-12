@@ -22,7 +22,7 @@ LABEL maintainer="AppThreat" \
 
 USER root
 
-RUN microdnf install -y python36 ruby ruby-libs ruby-devel rubygems nodejs git-core java-11-openjdk-headless \
+RUN microdnf install -y tar xz curl wget unzip python36 ruby ruby-libs ruby-devel rubygems nodejs git-core java-11-openjdk-headless \
     && curl -LO "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" \
     && tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz \
     && rm -rf /usr/local/go/src /usr/local/go/test \
