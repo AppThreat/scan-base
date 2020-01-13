@@ -3,9 +3,7 @@ FROM registry.access.redhat.com/ubi8/ubi-minimal as builder
 ARG CLI_VERSION
 ARG BUILD_DATE
 
-ENV GOPATH=/opt/app-root/go \
-    GO_VERSION=1.13.6 \
-    PATH=${PATH}:${GOPATH}/bin:/usr/local/go/bin:
+ENV PATH=${PATH}:/usr/local/go/bin:
 
 LABEL maintainer="AppThreat" \
       org.label-schema.schema-version="1.0" \
@@ -22,10 +20,7 @@ LABEL maintainer="AppThreat" \
 
 USER root
 
-RUN microdnf install -y tar xz curl wget unzip python36 ruby ruby-libs ruby-devel rubygems nodejs git-core java-11-openjdk-headless \
+RUN microdnf install -y tar xz curl wget unzip python36 ruby ruby-libs ruby-devel rubygems nodejs golang git-core java-11-openjdk-headless \
     && curl -LO "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" \
-    && tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz \
-    && rm -rf /usr/local/go/src /usr/local/go/test \
-    && rm go${GO_VERSION}.linux-amd64.tar.gz \
     && npm install -g yarn \
     && microdnf clean all

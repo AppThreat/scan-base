@@ -4,7 +4,6 @@ ARG CLI_VERSION
 ARG BUILD_DATE
 
 ENV GOPATH=/opt/app-root/go \
-	GO_VERSION=1.13.6 \
     PATH=${PATH}:/opt/app-root/src/.cargo/bin:${GOPATH}/bin:/usr/local/go/bin:
 
 LABEL maintainer="AppThreat" \
@@ -23,15 +22,11 @@ LABEL maintainer="AppThreat" \
 USER root
 
 RUN yum update -y \
-    && yum install -y ruby ruby-libs ruby-devel rubygems nodejs java-11-openjdk-headless \
+    && yum install -y ruby ruby-libs ruby-devel rubygems nodejs golang java-11-openjdk-headless \
     && curl -L https://sh.rustup.rs > rust-installer.sh \
     && chmod +x rust-installer.sh \
     && bash rust-installer.sh -y \
     && rm rust-installer.sh \
     && cargo install -q cargo-audit \
-    && curl -LO "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" \
-    && tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz \
-    && rm -rf /usr/local/go/src /usr/local/go/test \
-    && rm go${GO_VERSION}.linux-amd64.tar.gz \
     && npm install -g yarn \
     && yum clean all
