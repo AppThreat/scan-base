@@ -20,6 +20,6 @@ LABEL maintainer="AppThreat" \
 
 USER root
 
-RUN microdnf install -y tar xz curl wget unzip python36 ruby ruby-libs ruby-devel rubygems nodejs golang git-core java-11-openjdk-headless \
+RUN microdnf install -y tar xz curl dotnet wget unzip python36 ruby ruby-libs ruby-devel rubygems nodejs golang git-core java-11-openjdk-headless \
     && npm install -g yarn \
     && microdnf clean all
