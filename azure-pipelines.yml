@@ -1,0 +1,57 @@
+trigger:
+- master
+- feature/*
+pool:
+  vmImage: 'ubuntu-latest'
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build scan-ide image
+  jobs:
+  - job: Build
+    displayName: Docker Build and Push
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Docker@2
+      inputs:
+        command: 'login'
+        containerRegistry: prabhu_personal
+    - task: Docker@2
+      displayName: Build base image
+      inputs:
+        command: 'buildAndPush'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        repository: appthreat/scan-base
+        tags: |
+          $(tag)
+          latest
+    - task: Docker@2
+      displayName: Build slim image
+      inputs:
+        command: 'buildAndPush'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile-slim'
+        repository: appthreat/scan-base-slim
+        tags: |
+          $(tag)
+          latest
+    - task: Docker@2
+      displayName: Build java image
+      inputs:
+        command: 'buildAndPush'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile-java'
+        repository: appthreat/scan-base-java
+        tags: |
+          $(tag)
+          latest
+    - task: Docker@2
+      displayName: Build csharp image
+      inputs:
+        command: 'buildAndPush'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile-csharp'
+        repository: appthreat/scan-base-csharp
+        tags: |
+          $(tag)
+          latest
