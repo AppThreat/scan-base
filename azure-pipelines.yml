@@ -11,7 +11,7 @@ stages:
   displayName: Build scan base images
   jobs:
   - job: Build
-    displayName: Docker Build and Push
+    displayName: Docker Build and Push - Base
     pool:
       vmImage: 'ubuntu-latest'
     steps:
@@ -30,7 +30,7 @@ stages:
           latest
 
   - job: Build_slim
-    displayName: Docker Build and Push
+    displayName: Docker Build and Push - Slim
     pool:
       vmImage: 'ubuntu-latest'
     steps:
@@ -49,7 +49,7 @@ stages:
           latest
 
   - job: Build_java
-    displayName: Docker Build and Push
+    displayName: Docker Build and Push - Java
     pool:
       vmImage: 'ubuntu-latest'
     steps:
@@ -68,7 +68,7 @@ stages:
           latest
 
   - job: Build_csharp
-    displayName: Docker Build and Push
+    displayName: Docker Build and Push - Csharp
     pool:
       vmImage: 'ubuntu-latest'
     steps:
